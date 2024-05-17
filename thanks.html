@@ -100,7 +100,7 @@
                                         </li>
                                         <li><a href="about.html">About Us</a></li>
                                         <li><a href="services.html">Services</a></li>
-                                        <li class="active"><a href="contact.html">Contact Us</a></li>
+                                        <li a href="contact.html">Contact Us</a></li>
                                     </ul>
                                 </div>
                                 <div class="tgmenu__action">
@@ -365,30 +365,6 @@
           $('.offCanvas__info').removeClass("active");
           e.preventDefault();
         });
-    </script>
-
-    <script type="text/javascript">
-
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbwFojrrTYAmLZoEzYMhwtKmeuybqmuuTcYD0_B8HbQu5WIMRVqlsYLshlUwUe40Xiz7Sg/exec'
-
-            const form = document.forms['contact-form']
-
-            form.addEventListener('submit', e => {
-              e.preventDefault()
-              fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-              .then(response => {
-                // Check if the response is successful
-                if (response.ok) {
-                  // If successful, navigate to the thanks page
-                  window.location.href = 'thanks.html';
-                } else {
-                  // Handle other response scenarios if needed
-                  console.error('Error:', response.statusText);
-                }
-              })
-              // .then(() => { window.location.reload(); })
-              .catch(error => console.error('Error!', error.message))
-            })
     </script>
 </body>
 
