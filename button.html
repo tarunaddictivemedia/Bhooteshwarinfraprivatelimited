@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watcho Deep Link</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <button id="openWatchoButton">Open Watcho</button>
+
+    <script>
+        $(document).ready(function() {
+            $('#openWatchoButton').on('click', function() {
+                var appUrl = "watcho://";
+                var webUrl = "https://www.watcho.com";
+
+                // Check if the user is on a mobile device
+                var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+                if (isMobile) {
+                    // Create an iframe to try to open the app
+                    var iframe = document.createElement('iframe');
+                    iframe.style.display = 'none';
+                    iframe.src = appUrl;
+                    document.body.appendChild(iframe);
+
+                    var timeout = setTimeout(function() {
+                        // If the app is not installed, this timeout will trigger
+                        window.location.href = webUrl;
+                    }, 1500); // Adjust the timeout duration as needed
+
+                    // Remove the iframe after attempting to open the app
+                    $(iframe).on('load', function() {
+                        clearTimeout(timeout);
+                        $(iframe).remove();
+                    });
+
+                    // Clean up the iframe in case of error
+                    $(iframe).on('error', function() {
+                        clearTimeout(timeout);
+                        $(iframe).remove();
+                        window.location.href = webUrl;
+                    });
+
+                } else {
+                    // If not on a mobile device, redirect to the website
+                    window.location.href = webUrl;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
