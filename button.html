@@ -12,45 +12,44 @@
 
     <script>
         $(document).ready(function() {
-            $('.openWatchoButton').on('click', function(e) {
-                e.preventDefault();
-                var appUrl = "watcho://";
-                var webUrl = "https://www.watcho.com";
+    $('.openWatchoButton').on('click', function(e) {
+        e.preventDefault();
+        var appUrl = "watcho://";
+        var webUrl = "https://www.watcho.com";
 
-                // Check if the user is on a mobile device
-                var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        // Check if the user is on a mobile device
+        var isMobile = /iPhone|iPad|Android|iPod/i.test(navigator.userAgent);
 
-                if (isMobile) {
-                    // Create an iframe to try to open the app
-                    var iframe = document.createElement('iframe');
-                    iframe.style.display = 'none';
-                    iframe.src = appUrl;
-                    document.body.appendChild(iframe);
+        if (isMobile) {
+            console.log("Mobile device detected");
 
-                    var timeout = setTimeout(function() {
-                        // If the app is not installed, this timeout will trigger
-                        window.location.href = webUrl;
-                    }, 1500); // Adjust the timeout duration as needed
+            // Create an iframe to try to open the app
+            var iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = appUrl;
+            document.body.appendChild(iframe);
 
-                    // Remove the iframe after attempting to open the app
-                    $(iframe).on('load', function() {
-                        clearTimeout(timeout);
-                        $(iframe).remove();
-                    });
+            var timeout = setTimeout(function() {
+                // If the app is not installed, this timeout will trigger
+                console.log("App not installed, redirecting to web URL");
+                window.location.href = webUrl;
+            }, 1500); // Adjust the timeout duration as needed
 
-                    // Clean up the iframe in case of error
-                    $(iframe).on('error', function() {
-                        clearTimeout(timeout);
-                        $(iframe).remove();
-                        window.location.href = webUrl;
-                    });
-
-                } else {
-                    // If not on a mobile device, redirect to the website
-                    window.location.href = webUrl;
-                }
+            // Clean up the iframe in case of success or error
+            $(iframe).on('load error', function() {
+                clearTimeout(timeout);
+                $(iframe).remove();
+                console.log("Iframe load or error event triggered");
             });
-        });
+
+        } else {
+            // If not on a mobile device, redirect to the website
+            console.log("Not a mobile device, redirecting to web URL");
+            window.location.href = webUrl;
+        }
+    });
+});
+
     </script>
 </body>
 </html>
