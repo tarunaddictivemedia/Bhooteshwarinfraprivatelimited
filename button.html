@@ -7,11 +7,12 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <button id="openWatchoButton">Open Watcho</button>
+    <button class="openWatchoButton">Open Watcho</button>
+    <button class="openWatchoButton">Open Watcho to app</button>
 
     <script>
         $(document).ready(function() {
-            $('#openWatchoButton').on('click', function() {
+            $('.openWatchoButton').on('click', function() {
                 var appUrl = "watcho://";
                 var webUrl = "https://www.watcho.com";
 
