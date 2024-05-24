@@ -12,7 +12,8 @@
 
     <script>
         $(document).ready(function() {
-            $('.openWatchoButton').on('click', function() {
+            $('.openWatchoButton').on('click', function(e) {
+                e.preventDefault();
                 var appUrl = "watcho://";
                 var webUrl = "https://www.watcho.com";
 
